@@ -1,4 +1,4 @@
-package id.pak.fs;
+package io.github.ykrapiva.pakfs;
 
 import lombok.RequiredArgsConstructor;
 

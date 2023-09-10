@@ -1,4 +1,4 @@
-package id.pak.fs;
+package io.github.ykrapiva.pakfs;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
