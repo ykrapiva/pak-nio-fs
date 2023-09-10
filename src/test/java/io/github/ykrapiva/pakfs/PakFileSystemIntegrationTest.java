@@ -8,6 +8,8 @@ import org.junit.jupiter.api.io.TempDir;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.nio.ByteBuffer;
+import java.nio.channels.SeekableByteChannel;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -71,6 +73,20 @@ class PakFileSystemIntegrationTest {
                 assertThat(IOUtils.toString(is, StandardCharsets.UTF_8))
                         .isEqualTo("maps/level2.bsp");
             }
+        }
+    }
+
+    @Test
+    void reading() throws IOException {
+        Path path = rootPath.resolve("palette.pcx");
+        try (SeekableByteChannel channel = Files.newByteChannel(path)) {
+            ByteBuffer buffer1 = ByteBuffer.allocate(4);
+            ByteBuffer buffer2 = ByteBuffer.allocate(7);
+            channel.read(buffer1);
+            channel.read(buffer2);
+            String s1 = new String(buffer1.array(), StandardCharsets.UTF_8);
+            String s2 = new String(buffer2.array(), StandardCharsets.UTF_8);
+            assertThat(s1 + s2).isEqualTo("palette.pcx");
         }
     }
 }

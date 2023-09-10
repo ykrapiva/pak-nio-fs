@@ -31,7 +31,7 @@ class PakFileEntryChannel implements SeekableByteChannel {
         }
 
         buffer.position(0);
-        buffer.limit(Math.min(bytesLeft, buffer.capacity()));
+        buffer.limit(Math.min(dst.capacity(), Math.min(bytesLeft, buffer.capacity())));
 
         int read = fileChannel.read(buffer);
 
